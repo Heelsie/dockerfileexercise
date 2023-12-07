@@ -12,7 +12,7 @@ pipeline {
          stage('Init') {
 
             steps {
-                echo "You have selected $(GIT_BRANCH) GIT Branch"
+                //echo "You have selected $(GIT_BRANCH) GIT Branch"
                 if (env.GIT_BRANCH =='origin/main') {
 
                 sh '''
