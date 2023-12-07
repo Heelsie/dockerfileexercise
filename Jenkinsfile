@@ -20,12 +20,23 @@ pipeline {
 
             steps {
 
-                sh 'docker build -t flask-app .'
-
-                sh 'docker build -t mynginx ./nginx'
+                sh '''
+                docker build -t heelsie/flask-jenk:latest -t heelsie/flask-jenk:v${BUILD_NUMBER} .
+                docker build -t heelsie/nginx-jenk:latest -t heelsie/nginx-jenk:v${BUILD_NUMBER} ./nginx
+                '''
 
             }
 
+        }
+        stage('Push') {
+            steps {
+                sh '''
+                docker push heelsie/flask-jenk:latest
+                docker push heelsie/flask-jenk:v${BUILD_NUMBER}
+                docker push heelsie/nginx-jenk:latest
+                docker push heelsie/nginx-jenk:v${BUILD_NUMBER}
+                '''
+            }
         }
 
         stage('Deploy') {
