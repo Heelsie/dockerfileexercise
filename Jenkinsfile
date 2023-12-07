@@ -37,7 +37,9 @@ pipeline {
                 sh 'docker run -d -p 80:80 --name mynginx --network new-network mynginx:latest'
 
             }
-            stage('CleanUp') {
+            
+        }
+        stage('CleanUp') {
             steps {
 
                 sh '''
@@ -45,7 +47,6 @@ pipeline {
                 '''
 
             }
-        }
 
         }
 
