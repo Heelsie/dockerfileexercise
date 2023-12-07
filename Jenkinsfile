@@ -37,6 +37,15 @@ pipeline {
                 sh 'docker run -d -p 80:80 --name mynginx --network new-network mynginx:latest'
 
             }
+            stage('CleanUp') {
+            steps {
+
+                sh '''
+                docker system prune -f
+                '''
+
+            }
+        }
 
         }
 
