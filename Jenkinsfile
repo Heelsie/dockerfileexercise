@@ -12,9 +12,9 @@ pipeline {
          stage('Init') {
 
             steps {
+                script {
                 //echo "You have selected $(GIT_BRANCH) GIT Branch"
-                if (env.GIT_BRANCH =='origin/main') {
-
+                if (env.GIT_BRANCH == 'origin/main') {
                 sh '''
                 ssh -i ~/.ssh/id_rsa jenkins@10.154.0.25  << EOF
                 docker rm -f $(docker ps -qa) || true
@@ -22,11 +22,12 @@ pipeline {
                 '''
                 }
                 else if (env.GIT_BRANCH == 'origin/test') {
-                    sh '''
+                sh '''
                 ssh -i ~/.ssh/id_rsa jenkins@TestIP  << EOF
                 docker rm -f $(docker ps -qa) || true
                 docker network create new-network || true
                 '''
+                }
                 }
 
             }
