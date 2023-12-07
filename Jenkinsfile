@@ -2,7 +2,7 @@ pipeline {
 
     agent any
 
-    enironment {
+    environment {
         // Declare variable to set environment
         WorkingEnv = "undetermined"
     }
