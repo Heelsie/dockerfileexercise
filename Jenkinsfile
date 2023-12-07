@@ -77,6 +77,7 @@ pipeline {
                 docker run -d -p 80:80 --name mynginx --network new-network heelsie/nginx-jenk:latest
                 '''
                 }
+                }
                 
 
             }
