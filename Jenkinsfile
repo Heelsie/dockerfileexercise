@@ -22,7 +22,7 @@ pipeline {
 
                 sh 'docker build -t flask-app .'
 
-                sh 'docker build -t mynginx -f ./nginx/Dockerfile .'
+                sh 'docker build -t mynginx ./nginx .'
 
             }
 
