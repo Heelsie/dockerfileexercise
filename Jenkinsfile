@@ -13,15 +13,16 @@ pipeline {
 
             steps {
                     script {
-                    //echo "You have selected $(GIT_BRANCH) GIT Branch"
+                    sh '''
+                    echo "You have selected $(GIT_BRANCH) GIT Branch"
+                    '''
                     if (env.GIT_BRANCH == 'origin/main') {
                     sh '''
                     ssh -i ~/.ssh/id_rsa jenkins@10.154.0.25  << EOF
                     docker rm -f $(docker ps -qa) || true
                     docker network create new-network || true
                     '''
-                    }
-                    else if (env.GIT_BRANCH == 'origin/test') {
+                    } else if (env.GIT_BRANCH == 'origin/test') {
                     sh '''
                     ssh -i ~/.ssh/id_rsa jenkins@10.154.0.31  << EOF
                     docker rm -f $(docker ps -qa) || true
