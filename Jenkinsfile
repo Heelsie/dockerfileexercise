@@ -2,32 +2,32 @@ pipeline {
 
     agent any
 
-    environment {
-        // Declare variable to set environment
-        WorkingEnv = "undetermined"
-    }
+    // environment {
+    //     // Declare variable to set environment
+    //     WorkingEnv = "undetermined"
+    // }
 
     stages {
 
          stage('Init') {
 
             steps {
-                script {
-                //echo "You have selected $(GIT_BRANCH) GIT Branch"
-                if (env.GIT_BRANCH == 'origin/main') {
-                sh '''
-                ssh -i ~/.ssh/id_rsa jenkins@10.154.0.25  << EOF
-                docker rm -f $(docker ps -qa) || true
-                docker network create new-network || true
-                '''
-                }
-                else if (env.GIT_BRANCH == 'origin/test') {
-                sh '''
-                ssh -i ~/.ssh/id_rsa jenkins@10.154.0.31  << EOF
-                docker rm -f $(docker ps -qa) || true
-                docker network create new-network || true
-                '''
-                }
+                    script {
+                    //echo "You have selected $(GIT_BRANCH) GIT Branch"
+                    if (env.GIT_BRANCH == 'origin/main') {
+                    sh '''
+                    ssh -i ~/.ssh/id_rsa jenkins@10.154.0.25  << EOF
+                    docker rm -f $(docker ps -qa) || true
+                    docker network create new-network || true
+                    '''
+                    }
+                    else if (env.GIT_BRANCH == 'origin/test') {
+                    sh '''
+                    ssh -i ~/.ssh/id_rsa jenkins@10.154.0.31  << EOF
+                    docker rm -f $(docker ps -qa) || true
+                    docker network create new-network || true
+                    '''
+                    }
                 }
 
             }
@@ -61,22 +61,22 @@ pipeline {
 
             steps {
 
-                script {
-                //echo "You have selected $(GIT_BRANCH) GIT Branch"
-                if (env.GIT_BRANCH == 'origin/main') {
-                sh '''
-                ssh -i ~/.ssh/id_rsa jenkins@10.154.0.25  << EOF
-                docker run -d --name flask-app --network new-network heelsie/flask-jenk:latest
-                docker run -d -p 80:80 --name mynginx --network new-network heelsie/nginx-jenk:latest
-                '''
-                }
-                else if (env.GIT_BRANCH == 'origin/test') {
-                sh '''
-                ssh -i ~/.ssh/id_rsa jenkins@10.154.0.31  << EOF
-                docker run -d --name flask-app --network new-network heelsie/flask-jenk:latest
-                docker run -d -p 80:80 --name mynginx --network new-network heelsie/nginx-jenk:latest
-                '''
-                }
+                    script {
+                    //echo "You have selected $(GIT_BRANCH) GIT Branch"
+                    if (env.GIT_BRANCH == 'origin/main') {
+                    sh '''
+                    ssh -i ~/.ssh/id_rsa jenkins@10.154.0.25  << EOF
+                    docker run -d --name flask-app --network new-network heelsie/flask-jenk:latest
+                    docker run -d -p 80:80 --name mynginx --network new-network heelsie/nginx-jenk:latest
+                    '''
+                    }
+                    else if (env.GIT_BRANCH == 'origin/test') {
+                    sh '''
+                    ssh -i ~/.ssh/id_rsa jenkins@10.154.0.31  << EOF
+                    docker run -d --name flask-app --network new-network heelsie/flask-jenk:latest
+                    docker run -d -p 80:80 --name mynginx --network new-network heelsie/nginx-jenk:latest
+                    '''
+                    }
                 }
                 
 
