@@ -89,6 +89,8 @@ pipeline {
 
                 sh '''
                 docker system prune -f
+                docker rmi heelsie/nginx-jenk:v${BUILD_NUMBER}
+                docker rmi heelsie/flask-jenk:v${BUILD_NUMBER}
                 '''
 
             }
